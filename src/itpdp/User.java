@@ -1,6 +1,7 @@
 package itpdp;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 
 import processing.core.PApplet;
 import de.bezier.data.sql.*;
@@ -15,6 +16,8 @@ public class User {
 	private String name;
 	private String email;
 	private String height;
+	
+	private ArrayList<RecordMapping> jumps;
 	
 	@SuppressWarnings("static-access")
 	public User(PApplet p, MySQL msql){
@@ -49,6 +52,12 @@ public class User {
 	    {
 	    	parent.println( "failed" );
 	    }
+		
+	}
+	
+	public void addJump(RecordMapping rm){
+		
+		this.jumps.add(rm);
 		
 	}
 	
