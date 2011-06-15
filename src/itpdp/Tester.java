@@ -187,6 +187,7 @@ public class Tester extends PApplet {
 				mapping.map(keyCode);
 				println("Added " + keyCode);
 				mapping.printParsed();
+				mapping.printParsed();
 			}
 		}
 		
