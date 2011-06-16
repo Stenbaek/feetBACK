@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import controlP5.ControlP5;
+import controlP5.ListBox;
 
 import de.bezier.data.sql.MySQL;
 import processing.core.*;
@@ -20,6 +21,7 @@ public class Tester extends PApplet {
 	private RecordController recordController;
 	
 	private ControlP5 controlP5;
+	private ListBox l;
 	
 	private User user = null;
 	
@@ -129,21 +131,21 @@ public class Tester extends PApplet {
 		redraw();
 		
 	    this.user = new User(this, this.msql);
-	    println(this.user.getEmail());
+	    println(user.getEmail());
 		println(Serial.list());
-		this.myPort = new Serial(this, Serial.list()[5], 9600);
-		this.myPort.buffer(5);
+		this.myPort = new Serial(this, Serial.list()[1], 9600);
+		this.myPort.buffer(1);
 		this.myPort2 = new Serial(this, Serial.list()[3], 9600);
 		this.myPort2.buffer(3);
-		this.myPort3 = new Serial(this, Serial.list()[1], 9600);
-		this.myPort3.buffer(1);
+		this.myPort3 = new Serial(this, Serial.list()[5], 9600);
+		this.myPort3.buffer(5);
 		//noLoop();
 		
 		this.f = loadFont("AppleGothic-30.vlw");  
 		
-		this.mapping = new RecordMapping(user, this);
+		this.mapping = new RecordMapping(this);
 		this.controlP5 = new ControlP5(this);
-		this.recordController = new RecordController(false, this);
+		this.recordController = new RecordController(false, this, this);
 
 		resetDrawing();
 	}
@@ -205,11 +207,23 @@ public class Tester extends PApplet {
 //		Set<Integer> pushed3 = new HashSet<Integer>();
 		
 		if(this.showLogin == 1 && this.buttonsAdded == 0){
-			this.controlP5.addButton("Record",255,400,200,250,50);
+			this.controlP5.addToggle("Record",400,200,250,50);
 			controlP5.controller("Record").addListener(this.recordController);
 			this.controlP5.addToggle("Show on floor",400,270,250,50);
 			controlP5.controller("Show on floor").addListener(new SendController(this));
+			l = controlP5.addListBox("myList",400,400,120,120);
+			l.setItemHeight(30);
+			l.setBarHeight(15);
+			l.setHeight(120);
+			l.addItem("Hej1", 1);
+			l.addItem("Hej", 2);
+			
+			
 			this.buttonsAdded = 1;
+		}
+		
+		if(this.buttonsAdded == 1){
+
 		}
 		
 		this.p1.drawPad(c1,c2,pushed1);
@@ -296,7 +310,15 @@ public class Tester extends PApplet {
 	}
 	
 	
-
+	public void pushRecording(){
+		this.println("HEJ");
+		
+		this.user.addJump(mapping);
+		this.mapping = new RecordMapping(this);
+		this.pushed1.clear();
+		this.pushed2.clear();
+		this.pushed3.clear();
+	}
 
 	
 }

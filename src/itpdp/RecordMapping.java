@@ -5,7 +5,7 @@ import java.util.*;
 
 import processing.core.PApplet;
 
-public class RecordMapping {
+public class RecordMapping implements Cloneable {
 	
 	private ArrayList<RecordPoint> steps;
 	private Date start;
@@ -16,8 +16,8 @@ public class RecordMapping {
 	private PApplet p;
 	
 	//Constructor 
-	public RecordMapping(User user, PApplet p){
-		this.setUser(user);
+	public RecordMapping(PApplet p){
+
 		this.setRecording(false);
 		this.setComplete(false);
 		this.steps = new ArrayList<RecordPoint>();

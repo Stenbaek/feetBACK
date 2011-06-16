@@ -18,7 +18,7 @@ public class User {
 	private String height;
 	
 	private ArrayList<RecordMapping> jumps;
-	
+
 	@SuppressWarnings("static-access")
 	public User(PApplet p, MySQL msql){
 		this.msql = msql;
@@ -30,7 +30,7 @@ public class User {
 //	    }catch(Exception e){
 //	    	this.parent.println("exception :" + e);
 //	    }
-		
+		jumps = new ArrayList<RecordMapping>();
 	}
 	
 	public void defineUser(String userid){
@@ -69,7 +69,6 @@ public class User {
 			try {
 				passwordMD5 = new MD5Password(password).getMD5Password();
 			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
 				this.parent.println("Algoritmen virker ikke, kunne ikke MD5");
 			}
 	    	String query = "SELECT COUNT(*) FROM users WHERE username = '" + username + "' AND password = '"+ passwordMD5 + "'";
@@ -139,6 +138,10 @@ public class User {
 
 	public String getHeight() {
 		return height;
+	}
+	
+	public ArrayList<RecordMapping> getJumps() {
+		return jumps;
 	}
 	
 }
